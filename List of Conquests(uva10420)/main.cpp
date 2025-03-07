@@ -9,7 +9,7 @@ int main(){
     char others[76] = {0};
     int n = 0;
     cin >> n;
-    
+    cin.ignore();
     while(n--){
         cin >> first;
         count[first]++;
