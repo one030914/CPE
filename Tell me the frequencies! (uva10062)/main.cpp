@@ -1,23 +1,39 @@
 #include <iostream>
-#include <algorithm>
-#include <vector>
 #include <map>
+#include <vector>
+#include <algorithm>
+#include <string>
 using namespace std;
 
-int main(){
-    map<int, int> ans;
-    bool flag = false;
-    string str;
-    while(getline(cin, str)){
-        if(flag) cout << "\n";
-        flag = true;
+int main() {
+    string line;
+    bool first = true;
 
-        for(char i : str){
-            ans[(int) i]++;
+    while (getline(cin, line)) {
+        if (!first) cout << "\n";
+        first = false;
+
+        map<char, int> freq;
+
+        for (char ch : line) {
+            freq[ch]++;
         }
-        for(auto it : ans){
-            sort(it.second.begin(), it.second.end());
-            cout << it.first << " " << it.second << endl;
+
+        vector<pair<int, char>> sorted_freq;
+        for (auto &p : freq) {
+            sorted_freq.push_back({ p.second, p.first });
+        }
+
+        sort(sorted_freq.begin(), sorted_freq.end(), [](const pair<int, char> &a, const pair<int, char> &b) {
+            if (a.first != b.first)
+                return a.first < b.first;
+            return a.second > b.second;
+        });
+
+        for (auto &p : sorted_freq) {
+            cout << (int)p.second << " " << p.first << "\n";
         }
     }
+
+    return 0;
 }
